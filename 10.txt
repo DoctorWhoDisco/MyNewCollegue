@@ -1,0 +1,74 @@
+#include <iostream>
+using namespace std;
+int sum, f1, f3;
+int com = 1;
+int f2 = 1;
+int i = 1;
+
+int fack(int k){
+  if (k == 1) return k;
+  return k * fack(k-1);
+}
+
+int arr[14];
+string fibb(int k){
+  arr[0] = 0;
+  while (i<k){
+    arr[i] = f2;
+    f3 = f1+f2;
+    f1=f2;
+    f2=f3;
+    i+=1;
+    return (fibb(k));
+  }
+  for (int h=0; h<k; h++) cout << arr[h] << " ";
+  string g = " ";
+  return g;
+}
+
+int from(int k, int t){
+  if (k != t){
+    cout << k << " ";
+    k = k+1;
+    from(k, t);
+  }
+  else return t;
+}
+
+int summ(int h){
+  if (h != 0){
+    sum = sum + (h % 10);
+    h = h / 10;
+    summ(h);
+  }
+  else return sum;
+}
+
+int comp(int h){
+  if (h != 0){
+    com = com * (h % 10);
+    h = h / 10;
+    comp(h);
+  }
+  else return com;
+}
+
+string turn(int t){
+  while (t%10 != 0){
+    cout << t % 10;
+    t = t / 10;
+    return (turn(t));
+  }
+  string g = " ";
+  return g;
+}
+
+int main()
+{
+  cout << "Factorial 7 = " << fack(7) << endl;
+  cout << "Fibonacci to 14 = " << fibb(14) << endl;
+  cout << "From 4 to 10 = " << from(4, 14) << endl;
+  cout << "Summ of numbers 1447 = " << summ(1447) << endl;
+  cout << "Composition of numbers 1447 = " << comp(1447) << endl;
+  cout << "Inverted 1234 is " << turn(1234) << endl;
+}
