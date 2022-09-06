@@ -1,0 +1,169 @@
+#include <iostream>
+#include <algorithm>
+#include <string>
+using namespace std;
+
+struct pred {
+  int ocenki[10];
+};
+
+struct stud {
+  string name;
+  string surname;
+  pred math;
+  pred inf;
+};
+
+void vse(stud *arr, int h) {
+  for (int i = 0; i < h; i++) {
+    cout << arr[i].name << " " << arr[i].surname << endl;
+    cout << "Math: ";
+    for (int j = 0; j < 10; j++) cout << arr[i].math.ocenki[j] << " ";
+    cout << endl << "IT: ";
+    for (int j = 0; j < 10; j++) cout << arr[i].inf.ocenki[j] << " ";
+    cout << endl << endl;
+  }
+}
+
+void po_nomeru(stud *arr) {
+  int h;
+  cout << "Enter number: ";
+  cin >> h;
+  h = h - 1;
+  cout << endl << arr[h].name << " " << arr[h].surname << endl;
+  cout << "Math: ";
+  for (int i = 0; i < 10; i++) cout << arr[h].math.ocenki[i] << " ";
+  cout << endl << "IT: ";
+  for (int i = 0; i < 10; i++) cout << arr[h].inf.ocenki[i] << " ";
+}
+
+void v_alf(stud* arr, int num) {
+  sort(arr, arr + num, [](stud& v1, stud& v2)
+  {
+    return v1.name < v2.name;
+  });
+  for (int i = 0; i < 5; i++) {
+    cout << arr[i].name << " " << arr[i].surname << endl;
+    cout << "Math: ";
+    for (int j = 0; j < 10; j++) cout << arr[i].math.ocenki[j] << " ";
+    cout << endl << "IT: ";
+    for (int j = 0; j < 10; j++) cout << arr[i].inf.ocenki[j] << " ";
+    cout << endl << endl;
+  }
+}
+
+void redact(stud *arr) {
+  int h;
+  cout << "Enter number: ";
+  cin >> h;
+  h = h - 1;
+  cout << endl << arr[h].name << " " << arr[h].surname << endl;
+  cout << "Math: ";
+  for (int i = 0; i < 10; i++) cout << arr[h].math.ocenki[i] << " ";
+  cout << endl << "IT: ";
+  for (int i = 0; i < 10; i++) cout << arr[h].inf.ocenki[i] << " ";
+  int n = 0;
+  while (n == 0) {
+    cout << endl << "Math or IT";
+    string f;
+    cin >> f;
+    if (f == "Math") {
+      cout << "Enter the grade number to be changed: ";
+      int g;
+      cin >> g;
+      cout << endl << "Enter new grade: ";
+      cin >> arr[h].math.ocenki[g - 1];
+    }
+    else {
+      cout << "Enter the grade number to be changed: ";
+      int g;
+      cin >> g;
+      cout << endl << "Enter new grade: ";
+      cin >> arr[h].inf.ocenki[g - 1];
+    }
+    cout << endl << "Continue [Y/N]";
+    char d;
+    cin >> d;
+    if (d == 'Y') n = 0;
+    else n = 1;
+  }
+  cout << endl << arr[h].name << " " << arr[h].surname << endl;
+  cout << "Math: ";
+  for (int i = 0; i < 10; i++) cout << arr[h].math.ocenki[i] << " ";
+  cout << endl << "IT: ";
+  for (int i = 0; i < 10; i++) cout << arr[h].inf.ocenki[i] << " ";
+}
+
+void new_stud(stud *styd, int &num) {
+  stud *stad = new stud[num + 1];
+  for (int i = 0; i < num; i++) {
+    stad[i].name = styd[i].name;
+    stad[i].surname = styd[i].surname;
+    for (int j = 0; j < 10; j++)stad[i].math.ocenki[j] = styd[i].math.ocenki[j];
+    for (int j = 0; j < 10; j++)stad[i].math.ocenki[j] = styd[i].inf.ocenki[j];
+  }
+  cout << "Enter number of new student: ";
+  int r;
+  cin >> r;
+  for (int i = num - 1; i >= r - 1; i--) {
+    stad[i].name = stad[i - 1].name;
+    stad[i].surname = stad[i - 1].surname;
+    stad[i].math = stad[i - 1].math;
+    stad[i].inf = stad[i - 1].inf;
+  }
+  cout << "Enter name of new student: ";
+  cin >> styd[r - 1].name;
+  cout << "Enter surname of new student: ";
+  cin >> styd[r - 1].surname;
+  cout << "Enter students math marks (10 marks): ";
+  for (int i = 0; i < 10; i++) cin >> styd[r - 1].math.ocenki[i];
+  cout << "Enter students IT marks (10 marks): ";
+  for (int i = 0; i < 10; i++) cin >> styd[r - 1].inf.ocenki[i];
+  cout << endl;
+  for (int i = 0; i < num; i++) {                    //вывод всего
+    cout << styd[i].name << " " << styd[i].surname << endl;
+    cout << "Math: ";
+    for (int j = 0; j < 10; j++) cout << styd[i].math.ocenki[j] << " ";
+    cout << endl << "IT: ";
+    for (int j = 0; j < 10; j++) cout << styd[i].inf.ocenki[j] << " ";
+    cout << endl << endl;
+  }
+}
+
+int main() {
+  int ff;
+  int num = 5;
+  stud *styd = new stud[num];
+  styd[0].name = "Ilya";
+  styd[0].surname = "Sakov";
+  styd[0].math = { 2, 3, 4, 5, 3, 5, 4, 5, 3, 4 };
+  styd[0].inf = { 3, 2, 4, 5, 3, 5, 3, 2, 4, 5 };
+  //
+  styd[1].name = "Igor";
+  styd[1].surname = "Salat";
+  styd[1].math = { 4, 3, 5, 2, 5, 4, 3, 2, 5, 4 };
+  styd[1].inf = { 3, 4, 3, 2, 4, 3, 5, 3, 5, 4 };
+  //
+  styd[2].name = "Ivan";
+  styd[2].surname = "Saluk";
+  styd[2].math = { 2, 4, 5, 3, 4, 3, 2, 4, 3, 4 };
+  styd[2].inf = { 4, 5, 3, 4, 3, 5, 2, 3, 4, 3 };
+  //
+  styd[3].name = "Ioad";
+  styd[3].surname = "Savuk";
+  styd[3].math = { 3, 4, 2, 5, 5, 4, 5, 4, 3, 5 };
+  styd[3].inf = { 3, 4, 4, 5, 5, 5, 5, 4, 3, 4 };
+  //
+  styd[4].name = "Iuda";
+  styd[4].surname = "Savok";
+  styd[4].math = { 2, 3, 2, 3, 4, 3, 2, 3, 4, 2 };
+  styd[4].inf = { 4, 3, 4, 3, 2, 2, 3, 4, 5, 2 };
+  //
+  cout << "1) Display all data\n" << "2) Display data by student number\n" << "3) Sort by alphabet\n" << "4) Edit grades\n" << "5) Add new student\n" << "Enter function number: ";
+  cin >> ff;
+  if (ff == 1) vse(styd, num);
+  else if (ff == 2) po_nomeru(styd);
+  else if (ff == 3) v_alf(styd, num);
+  else if (ff == 4) redact(styd);
+  else if (ff == 5) new_stud(styd, num);
+}
